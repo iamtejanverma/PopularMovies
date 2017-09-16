@@ -4,8 +4,8 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -47,14 +47,16 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        StaggeredGridLayoutManager layoutManager = new
-                StaggeredGridLayoutManager(NUMBERS_OF_COLUMN, LAYOUT_VERTICAL);
+        GridLayoutManager layoutManager = new
+                GridLayoutManager(this, NUMBERS_OF_COLUMN, LAYOUT_VERTICAL, false);
 
         mRecyclerView.setLayoutManager(layoutManager);
 
         mAdapter = new MovieAdapter(this);
 
 
+
+        mRecyclerView.setAdapter(mAdapter);
 
         loadMoviesData();
 
@@ -68,8 +70,10 @@ public class MainActivity extends AppCompatActivity {
         Uri.Builder builder = requestUri.buildUpon();
         builder.appendPath("popular");
         builder.appendQueryParameter("api_key", API_KEY);
+
+
         Toast.makeText(getApplicationContext(),builder.toString(), Toast.LENGTH_LONG).show();
-        //new FetchMoviesTask().execute(builder.toString());
+        new FetchMoviesTask().execute(builder.toString());
 
     }
 
@@ -111,10 +115,7 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(List<Movies> moviesList) {
            if(!moviesList.isEmpty()){
                mAdapter.setMoviesData(moviesList);
-
-
-
-            mRecyclerView.setAdapter(mAdapter);}
+           }
             else {
                Toast.makeText(MainActivity.this, "Failed to fetch data!", Toast.LENGTH_SHORT).show();
            }
