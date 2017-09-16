@@ -2,4 +2,8 @@
     <string name="app_name">Popular Movies</string>
 
     <string name="action_refresh">Refresh</string>
+
+    <string name="detail_popularity">Popularity - </string>
+    <string name="detail_release_date">Release Date - </string>
+    <string name="detail_overview">Overview - </string>
 </resources>
