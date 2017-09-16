@@ -47,10 +47,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapter
 
         Movies movies = mMoviesList.get(position);
         String posterPath = movies.getmPoster();
+        posterPath = posterPath.substring(1);
         Uri baseUri = Uri.parse(IMG_BASE_URL);
 
         Uri.Builder builder = baseUri.buildUpon();
-        builder.appendPath("w185");
+        builder.appendPath("w342");
         builder.appendPath(posterPath);
 
         Picasso.with(mContext).load(builder.toString()).into(holder.moviePoster);
@@ -60,7 +61,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapter
     @Override
     public int getItemCount() {
 
-        if(mMoviesList.isEmpty()){
+        if(mMoviesList == null){
             return 0;
         }
         return mMoviesList.size();
