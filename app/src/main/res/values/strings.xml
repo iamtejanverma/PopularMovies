@@ -6,4 +6,6 @@
     <string name="detail_popularity">Popularity - </string>
     <string name="detail_release_date">Release Date - </string>
     <string name="detail_overview">Overview - </string>
+
+    <string name="show_rating">Rating</string>
 </resources>
