@@ -1,6 +1,7 @@
 package com.rk.tjay.popularmovies;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -74,19 +75,31 @@ public class MainActivity extends AppCompatActivity
         builder.appendQueryParameter("api_key", API_KEY);
 
 
-        Toast.makeText(getApplicationContext(),builder.toString(), Toast.LENGTH_LONG).show();
+
         new FetchMoviesTask().execute(builder.toString());
 
     }
 
     @Override
     public void onItemClick(Movies currentMovie) {
-        if(mToast != null){
-            mToast.cancel();
-        }
+//        if(mToast != null){
+//            mToast.cancel();
+//        }
         Context context = this;
-        mToast = Toast.makeText(context, currentMovie.getmTitle(), Toast.LENGTH_LONG);
-        mToast.show();
+//        mToast = Toast.makeText(context, currentMovie.getmTitle(), Toast.LENGTH_LONG);
+//        mToast.show();
+
+        Intent startDetailIntent = new Intent(context, DetailActivity.class);
+        startDetailIntent.putExtra("moviePoster", currentMovie.getmPoster());
+        startDetailIntent.putExtra("movieTitle", currentMovie.getmTitle());
+        startDetailIntent.putExtra("movieOverview", currentMovie.getmOverview());
+        startDetailIntent.putExtra("movieBackPoster", currentMovie.getmBackPoster());
+        startDetailIntent.putExtra("moviePopularity", currentMovie.getmVoteCount());
+        startDetailIntent.putExtra("movieRating", currentMovie.getmVoteAverage());
+        startDetailIntent.putExtra("movieReleaseDate", currentMovie.getmReleaseDate());
+
+        startActivity(startDetailIntent);
+
     }
 
     @Override
