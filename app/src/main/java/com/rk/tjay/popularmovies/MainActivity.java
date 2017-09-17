@@ -9,8 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rk.tjay.popularmovies.utilities.NetworkUtils;
@@ -25,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int LAYOUT_VERTICAL = 1;
 
-    private static final int LAYOUT_HORIZONTAL = 0;
+    // private static final int LAYOUT_HORIZONTAL = 0;
 
     private static final int NUMBERS_OF_COLUMN = 3;
 
@@ -33,9 +31,9 @@ public class MainActivity extends AppCompatActivity {
 
     private MovieAdapter mAdapter;
 
-    private TextView mErrorMessagaDisplay;
+    // private TextView mErrorMessageDisplay;
 
-    private ProgressBar mLoadingIndicator;
+    // private ProgressBar mLoadingIndicator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void loadMoviesData(){
+    private void loadMoviesData(){
 
         Uri requestUri = Uri.parse(BASE_URL);
         Uri.Builder builder = requestUri.buildUpon();

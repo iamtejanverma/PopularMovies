@@ -61,10 +61,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapter
     @Override
     public int getItemCount() {
 
-        if(mMoviesList == null){
-            return 0;
-        }
-        return mMoviesList.size();
+//        if(mMoviesList == null){
+//            return 0;
+//        }
+//        return mMoviesList.size();
+
+        return (null != mMoviesList ? mMoviesList.size() : 0 );
 
     }
 
@@ -74,7 +76,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapter
         public MovieAdapterViewHolder(View view) {
             super(view);
 
-            moviePoster = (ImageView) view.findViewById(R.id.movie_poster);
+            moviePoster = view.findViewById(R.id.movie_poster);
         }
     }
 
