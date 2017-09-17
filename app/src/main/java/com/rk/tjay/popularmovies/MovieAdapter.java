@@ -23,11 +23,39 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapter
 
     private static final String IMG_BASE_URL = "http://image.tmdb.org/t/p/";
 
+    private final OnItemClickHandler mOnItemClickHandler;
 
 
-    public MovieAdapter(Context context) {
+    public interface OnItemClickHandler{
+        void onItemClick(Movies currentMovie);
+    }
+
+    public MovieAdapter(Context context, OnItemClickHandler onItemClickListener) {
         mContext = context;
         //mMoviesList = moviesList;
+        mOnItemClickHandler = onItemClickListener;
+    }
+
+    public class MovieAdapterViewHolder extends RecyclerView.ViewHolder
+            implements View.OnClickListener {
+        final ImageView moviePoster;
+
+        public MovieAdapterViewHolder(View view) {
+            super(view);
+
+            moviePoster = view.findViewById(R.id.movie_poster);
+            view.setOnClickListener(this);
+        }
+
+
+        @Override
+        public void onClick(View view) {
+
+            int adapterPosition = getAdapterPosition();
+            Movies currentMovie = mMoviesList.get(adapterPosition);
+            mOnItemClickHandler.onItemClick(currentMovie);
+
+        }
     }
 
     @Override
@@ -70,15 +98,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapter
 
     }
 
-    class MovieAdapterViewHolder extends RecyclerView.ViewHolder {
-        final ImageView moviePoster;
-
-        public MovieAdapterViewHolder(View view) {
-            super(view);
-
-            moviePoster = view.findViewById(R.id.movie_poster);
-        }
-    }
 
     public void setMoviesData(List<Movies> moviesList){
         mMoviesList = moviesList;

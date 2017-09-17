@@ -1,5 +1,6 @@
 package com.rk.tjay.popularmovies;
 
+import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -15,7 +16,8 @@ import com.rk.tjay.popularmovies.utilities.NetworkUtils;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+        implements MovieAdapter.OnItemClickHandler{
 
     private static final String BASE_URL = "http://api.themoviedb.org/3/movie";
 
@@ -24,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
     private static final int LAYOUT_VERTICAL = 1;
 
     // private static final int LAYOUT_HORIZONTAL = 0;
+
+    private Toast mToast;
 
     private static final int NUMBERS_OF_COLUMN = 3;
 
@@ -50,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
         mRecyclerView.setLayoutManager(layoutManager);
 
-        mAdapter = new MovieAdapter(this);
+        mAdapter = new MovieAdapter(this, this);
 
 
 
@@ -73,6 +77,16 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(),builder.toString(), Toast.LENGTH_LONG).show();
         new FetchMoviesTask().execute(builder.toString());
 
+    }
+
+    @Override
+    public void onItemClick(Movies currentMovie) {
+        if(mToast != null){
+            mToast.cancel();
+        }
+        Context context = this;
+        mToast = Toast.makeText(context, currentMovie.getmTitle(), Toast.LENGTH_LONG);
+        mToast.show();
     }
 
     @Override
